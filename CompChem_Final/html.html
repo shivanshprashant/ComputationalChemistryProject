@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NUCLEUS | Computational Research Suite</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo-box">
+                    <div class="logo-icon">N</div>
+                    <div class="logo-text">NUCLEUS <span>PRO</span></div>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">SP</div>
+                    <div class="user-info">
+                        <span class="name">Shivansh Prashant</span>
+                        <span class="role">Member</span>
+                        <span class="id">25BAI10384</span>
+                    </div>
+                </div>
+            </div>
+            
+            <nav>
+                <p class="nav-header">WORKSPACE</p>
+                <button class="nav-btn active" onclick="switchTab('dashboard')">
+                    <span class="icon">📊</span> Dashboard
+                </button>
+                <button class="nav-btn" onclick="switchTab('modules')">
+                    <span class="icon">📚</span> Theory Archive
+                </button>
+                
+                <p class="nav-header">LABORATORY</p>
+                <button class="nav-btn" onclick="switchTab('simulation')">
+                    <span class="icon">📈</span> PES Simulator
+                </button>
+                <button class="nav-btn" onclick="switchTab('calculator')">
+                    <span class="icon">🧮</span> Quantum Calc
+                </button>
+            </nav>
+
+            <div class="footer-info">
+                <p>Course: CHY1005</p>
+                <p>Group Project G14</p>
+            </div>
+        </aside>
+
+        <main id="main-display">
+            
+            <section id="dashboard" class="view active">
+                <div class="top-bar">
+                    <div>
+                        <h1>Project Overview</h1>
+                        <p class="breadcrumb">CHY1005 / Final Submission</p>
+                    </div>
+                    <div class="status-badge">● System Online</div>
+                </div>
+                
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <h3>Total Modules</h3>
+                        <div class="value">5</div>
+                        <div class="sub">Fully Indexed</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Tools Active</h3>
+                        <div class="value text-blue">2</div>
+                        <div class="sub">Sim & Calc</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Codebase</h3>
+                        <div class="value">v1.0</div>
+                        <div class="sub">Stable Build</div>
+                    </div>
+                </div>
+
+                <div class="team-section">
+                    <h2>Research & Development Team</h2>
+                    <div class="team-grid">
+                        <div class="team-card lead">
+                            <div class="role-tag">DEVELOPMENT</div>
+                            <h4>Shivansh Prashant</h4>
+                            <p>25BAI10384</p>
+                        </div>
+                        <div class="team-card lead">
+                            <div class="role-tag">DEVELOPMENT</div>
+                            <h4>Akanksha Sharma</h4>
+                            <p>25BAI10372</p>
+                        </div>
+                        <div class="team-card lead">
+                            <div class="role-tag" style="background: #00ff15; color: #374151;">RESEARCH</div>
+                            <h4>Rudra Sunil Solav</h4>
+                            <p>25BAI10373</p>
+                        </div>
+                        <div class="team-card lead">
+                            <div class="role-tag" style="background: #00ff15; color: #374151;">RESEARCH</div>
+                            <h4>Sarthak Jena</h4>
+                            <p>25BAI10247</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="modules" class="view">
+                <div class="top-bar">
+                    <h1>Theoretical Archive</h1>
+                </div>
+                <div class="module-grid"></div>
+            </section>
+
+            <section id="simulation" class="view">
+                <div class="top-bar">
+                    <h1>Potential Energy Surface (PES)</h1>
+                </div>
+                <div class="tool-layout">
+                    <div class="settings-panel">
+                        <h3>Lennard-Jones Parameters</h3>
+                        <p class="tool-desc">Adjust the interaction parameters between two non-bonded atoms.</p>
+                        
+                        <div class="control-group">
+                            <label>Well Depth (\(\epsilon\))</label>
+                            <input type="range" id="epsilon" min="1" max="10" value="5" step="0.5" oninput="updateChart()">
+                            <div class="value-display" id="eps-val">5.0</div>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label>Atomic Radius (\(\sigma\))</label>
+                            <input type="range" id="sigma" min="1" max="5" value="2" step="0.1" oninput="updateChart()">
+                            <div class="value-display" id="sig-val">2.0 Å</div>
+                        </div>
+
+                        <div class="formula-card">
+                            $$ V(r) = 4\epsilon \left[ \left(\frac{\sigma}{r}\right)^{12} - \left(\frac{\sigma}{r}\right)^{6} \right] $$
+                        </div>
+                    </div>
+                    <div class="visual-panel">
+                        <canvas id="pesChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section id="calculator" class="view">
+                <div class="top-bar">
+                    <h1>Quantum Calculator</h1>
+                </div>
+                <div class="tool-layout">
+                    <div class="settings-panel">
+                        <h3>Particle in a Box</h3>
+                        <p class="tool-desc">Calculate the eigenenergy for an electron in a 1D potential well.</p>
+                        
+                        <div class="input-group">
+                            <label>Quantum Number (\(n\))</label>
+                            <input type="number" id="q-n" value="1" min="1" class="form-input">
+                        </div>
+                        <div class="input-group">
+                            <label>Box Length (\(L\)) in nm</label>
+                            <input type="number" id="q-L" value="1.0" min="0.1" step="0.1" class="form-input">
+                        </div>
+                        
+                        <button class="calc-btn" onclick="calculateEnergy()">Calculate Energy</button>
+                    </div>
+                    
+                    <div class="visual-panel center-flex">
+                        <div class="result-box">
+                            <span>Energy (\(E_n\))</span>
+                            <h2 id="calc-output">0.000 eV</h2>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="detailModal" class="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2 id="mTitle">Module Title</h2>
+                <button class="close-btn" onclick="forceClose()">×</button>
+            </div>
+            <div class="modal-body">
+                <h4>Overview</h4>
+                <p id="mDesc">Description...</p>
+                
+                <h4>Key Formula</h4>
+                <div id="mFormula" class="math-display"></div>
+                
+                <h4>Core Concepts</h4>
+                <ul id="mConcepts" class="concept-list"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
